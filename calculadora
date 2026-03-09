@@ -1,0 +1,50 @@
+'''
+pedir o primeiro número 
+pedir o segundo número
+vai dar quatro opções de operadores
+'''
+
+while True:
+    numero_1 = input('digite um número: ')
+    numero_2 = input('digite um número: ')
+    operador = input('digite um operador [+ - * /]: ')
+    
+    numero_valido = None
+    try :
+        numero_1_float = float(numero_1)
+        numero_2_float = float(numero_2)
+        numero_valido = True
+    except: 
+        numero_valido = None
+
+    if numero_valido == None:
+        print('números inválidos')
+        continue
+
+    operadores_validos = '+-*/'
+    if operador not in operadores_validos:
+        print('operador inválido')
+        continue
+    if len(operador) > 1:
+        print('digite apenas um operador')
+        continue
+#####
+    if operador == '+' : 
+        print(numero_1_float + numero_2_float)
+    elif operador == '-' : 
+        print(numero_1_float - numero_2_float)
+    elif operador == '*' : 
+        print(numero_1_float * numero_2_float)
+    elif operador == '/' : 
+        print(numero_1_float / numero_2_float)
+
+
+
+    sair = input('você deseja sair? [sim] [não] ')
+    sair = sair.lower()
+    sair = sair.startswith('s')
+    
+    if sair is True:
+        break
+    
+
