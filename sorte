@@ -1,0 +1,158 @@
+# SORTEIO :
+import random
+def f_sortei():
+    '''sorteio do local e situação'''
+    'porta' == False
+    'cozinha' == False
+    'sala' == False
+    'quarto1' == False
+    'quarto2' == False
+
+    dados = []
+    local = ['porta','sala','cozinha','quarto1','quarto2']
+    estado = [True, False, True, True]
+
+    sorte_local= random.choice(local)
+    sorte_estado = random.choice(estado)
+    
+    dados.append(sorte_local)
+    dados.append(sorte_estado)
+
+    return dados
+
+# MOSTRADOR : 
+def f_mostrador(v_conta_geral):
+    '''mostra o nível do perigo usando barras'''
+    print('perigo : ', end='')
+    for a in range(v_conta_geral):
+        print('▓ ', end='')
+
+# INTRODUÇÃO :
+import os
+while True:
+    print('--- COMEÇO ---')
+    print('Mantenha o [perigo] menor que 5')
+    print('Qual tempo: ', end='')
+    valor = int(input()) # Quantos movimentos possíveis (sistema de tempo para final)
+    os.system('cls')
+    break
+
+# DADOS INICIAIS :
+contador = 0
+contador_geral=0
+
+porta= False
+cont_porta = 0
+sala= False
+cont_sala = 0
+cozinha= False
+cont_cozinha = 0
+quarto1= False
+cont_quarto1 = 0
+quarto2= False
+cont_quarto2 = 0
+
+# JOGO : 
+while contador != valor and contador_geral !=5:
+
+    # atulização
+    atualizar = f_sortei()
+    if atualizar[0]== 'porta' and atualizar[1]== True:
+        porta=True
+        cont_porta += 1
+    if atualizar[0]== 'sala' and atualizar[1]== True:
+        sala=True
+        cont_sala += 1
+    if atualizar[0]== 'cozinha' and atualizar[1]== True:
+        cozinha=True
+        cont_cozinha += 1
+    if atualizar[0]== 'quarto1' and atualizar[1]== True:
+        quarto1=True
+        cont_quarto1 += 1
+    if atualizar[0]== 'quarto2' and atualizar[1]== True:
+        quarto2=True
+        cont_quarto2 += 1
+    # atualização
+
+    # SISTEMA DE PERIGO: 
+    contador_geral = (cont_porta + cont_cozinha + cont_sala + cont_quarto1 + cont_quarto2)
+
+    # INÍCIO :  
+    while True:
+        contador_geral = (cont_porta + cont_cozinha + cont_sala + cont_quarto1 + cont_quarto2)
+
+            # MOSTRADOR : 
+        f_mostrador(contador_geral)
+            
+        print('')
+        print('Para onde:')
+        print('[porta] [sala] [cozinha] [escadas]')
+        movimento = input('→ ').lower()
+        os.system('cls')
+
+        # RESPOSTA A MOVIMENTAÇÃO :
+        # PRIMEIRO ANDAR :
+        if movimento =='':
+            continue
+        elif movimento[0] == 'p': # porta
+            if porta == True:
+                print('a porta foi trancada')
+                cont_porta -= 1
+                porta = False
+            else:
+                print('nada aconteceu')  
+
+        elif movimento[0] == 's': # sala
+            if sala == True:
+                print('a janela foi trancada')
+                cont_sala -= 1
+                sala = False
+            else:
+                print('nada aconteceu')
+                
+        elif movimento[0] == 'c': # cozinha
+            if cozinha == True:
+                print('a janela foi trancada')
+                cont_cozinha -= 1
+                cozinha= False
+            else:
+                print('nada aconteceu')    
+
+        # SEGUNDO ANDAR :
+        elif movimento [0] == 'e': # escada
+            print('você sobe as escadas')
+            print('[quarto 1] [quarto 2]')
+            movimento_2 = input('→ ').lower()
+
+            if movimento_2[-1] == '1': # quarto 1
+                if quarto1 == True:
+                    print('a porta foi trancada')
+                    cont_quarto1 -= 1
+                    quarto1 = False
+                else:
+                    print('nada aconteceu')
+            if movimento_2[-1] == '2': # quarto 2
+                if quarto2 == True:
+                    print('a porta foi trancada')
+                    cont_quarto2 -= 1
+                    quarto2= False
+                else:
+                    print('nada aconteceu')
+
+        
+        else:
+            continue
+
+        input('')  
+        os.system('cls')
+        contador = contador + 1 
+        break
+ 
+        
+if contador == valor:
+    print('Virória ')
+elif contador_geral == 5:
+    print('Muito perigoso')
+
+print('--- Fim ---')
+
